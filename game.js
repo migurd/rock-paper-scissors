@@ -1,7 +1,32 @@
+let userScore = 0
+let computerScore = 0
+
+// Elements from CSS
+const buttons = document.querySelectorAll('.op');
 const rock = document.querySelector('.rock');
 const paper = document.querySelector('.paper');
 const scissors = document.querySelector('.scissors');
-const text = document.querySelector('p');
+const infoText = document.querySelector('.infoText');
+const userScoreTxt = document.querySelector('.score-user')
+const computerScoreTxt = document.querySelector('.score-computer')
+const resultTxt = document.querySelector('.result')
+
+const disableButtons = () => {
+    buttons.forEach(e => {
+        e.disabled = true
+    });
+}
+
+const isOver = () => {
+    if(userScore === 5 || computerScore === 5) {
+        // Must show a bottom of restart, thus stopping the game
+        disableButtons()
+        if(userScore === 5)
+            resultTxt.textContent = 'User wins!'
+        else
+            resultTxt.textContent = 'Computer wins!'
+    }
+}
 
 rock.addEventListener('click', () => getComputerChoice('R'))
 paper.addEventListener('click', () => getComputerChoice('P'))
@@ -22,29 +47,37 @@ const getComputerChoice = (userChoice) => {
 }
 
 const winner = (userChoice, computerChoice) => {
-    console.log(String(userChoice + computerChoice))
-    
-    switch(String(userChoice + computerChoice)) {
+    let option = String(userChoice + computerChoice)
+    switch(option) {
         case 'RS':
-            text.textContent = "Rock beats scissors. User wins"
+            infoText.textContent = "Rock beats scissors. User wins"
+            userScore++
             break;
         case 'PR':
-            text.textContent = "Paper beats rock. User wins"
+            infoText.textContent = "Paper beats rock. User wins"
+            userScore++
             break;
         case 'SP':
-            text.textContent = "Scissors beats paper. User wins"
+            infoText.textContent = "Scissors beats paper. User wins"
+            userScore++
             break;
         case 'SR':
-            text.textContent = "Scissors beats rock. PC wins"
+            infoText.textContent = "Rock beats scissors. PC wins"
+            computerScore++
             break;
         case 'RP':
-            text.textContent = "Rock beats paper. PC wins"
+            infoText.textContent = "Paper beats rock. PC wins"
+            computerScore++
             break;         
         case 'PS':
-            text.textContent = "Paper beats scissors. PC wins"
+            infoText.textContent = "Rock beats scissors. PC wins"
+            computerScore++
             break;
         default:
-            text.textContent = "Tie!";
+            infoText.textContent = "Tie!";
             break;
     }
+    userScoreTxt.textContent = `USER: ${userScore}`
+    computerScoreTxt.textContent = `COMPUTER: ${computerScore}`
+    isOver()
 }
