@@ -6,25 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/desktop.css">
-    <title>🤘</title>
+	<link rel="shortcut icon" type="image/jpg" href="./src/rock.png">
+    <title>Rock, Paper & Scissors</title>
 </head>
 <body>
-    <button class="op rock">Rock</button>
-    <button class="op paper">Paper</button>
-    <button class="op scissors">Scissors</button>
-    <p class="infoText"></p>
-    <p class="score score-user"></p>
-    <p class="score score-computer"></p>
+    <header>
+        <h1>Rock Paper Scissors</h1>
+    </header>
+    <div class="score">
+        <p class="score__style score__player">Player</p>
+        <p class="score__style score__computer">PC</p>
+        <div>
+            <p class="score__text score-user">0</p>
+            <p>:</p>
+            <p class="score__text score-computer">0</p>
+        </div>
+    </div>
+    <p class="infoText">Choose an option</p>
+    <div class="options">
+        <button class="op rock">✊</button>
+        <button class="op paper">✋</button>
+        <button class="op scissors">✌</button>
+    </div>
     <div id="restart">
         <div class="restart__header">
-            <h1 class="result">Pepe Won</h1>
+            <h2 class="result"></h2>
         </div>
         <div class="restart__body">
             <p>Try again?</p>
-            <button id="restart__button">Yes!</button>
+            <div>
+                <button id="restart__button">Yes</button>
+                <button id="restart__noButton">No</button>
+            </div>
         </div>
     </div>
+    <footer>Made by <a href="https://github.com/migurd">Migurd</a></footer>
     <div id="overlay"></div>
+    <!-- 
+        Design inspired from https://www.youtube.com/watch?v=jaVNP3nIAv0
+     -->
     <script src="./game.js"></script>
 </body>
 </html>

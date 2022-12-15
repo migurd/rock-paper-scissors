@@ -13,6 +13,7 @@ const resultTxt = document.querySelector('.result')
 
 const restart = document.querySelector('#restart')
 const restartBtn = document.querySelector('#restart__button')
+const noBtn = document.querySelector('#restart__noButton')
 const overlay = document.querySelector('#overlay')
 
 // It starts from here when you click any botton
@@ -23,7 +24,6 @@ scissors.addEventListener('click', () => getComputerChoice('S'))
 // Computer
 const getComputerChoice = (userChoice) => {
     let number = Math.floor(Math.random() * 3) + 1;
-    console.log(number);
     switch(number) {
         case 1:
             return winner(userChoice, 'R');
@@ -38,40 +38,61 @@ const winner = (userChoice, computerChoice) => {
     let option = String(userChoice + computerChoice)
     switch(option) {
         case 'RS':
-            infoText.textContent = "Rock beats scissors. User wins"
+            infoText.textContent = "You won! Rock beats scissors."
+            color(rock, "green")
             userScore++
             break;
         case 'PR':
-            infoText.textContent = "Paper beats rock. User wins"
+            infoText.textContent = "You won! Paper beats rock."
+            color(paper, "green")
             userScore++
             break;
         case 'SP':
-            infoText.textContent = "Scissors beats paper. User wins"
+            infoText.textContent = "You won! Scissors beats paper."
+            color(scissors, "green")
             userScore++
             break;
         case 'SR':
-            infoText.textContent = "Rock beats scissors. PC wins"
+            infoText.textContent = "PC wins! Rock beats scissors."
+            color(scissors, "red")
             computerScore++
             break;
         case 'RP':
-            infoText.textContent = "Paper beats rock. PC wins"
+            infoText.textContent = "PC wins! Paper beats rock."
+            color(rock, "red")
             computerScore++
             break;         
         case 'PS':
-            infoText.textContent = "Rock beats scissors. PC wins"
+            infoText.textContent = "PC wins! Rock beats scissors."
+            color(paper, "red")
             computerScore++
             break;
         default:
             infoText.textContent = "Tie!";
+            if(option === 'RR')
+                color(rock, "tie")
+            else if (option === 'PP')
+                color(paper, "tie")
+            else
+                color(scissors, "tie")
             break;
     }
-    userScoreTxt.textContent = `USER: ${userScore}`
-    computerScoreTxt.textContent = `COMPUTER: ${computerScore}`
+    userScoreTxt.textContent = userScore
+    computerScoreTxt.textContent = computerScore
+
     // Each time there's a win, lose or tie, it's gonna check if any of the member has 5 points
     isOver()
 }
 
 // UTILITY
+
+const color = (option, result) => {
+    option.classList.add(`${result}-shadow`)
+    setTimeout(() => {
+        option.classList.remove(`${result}-shadow`)
+    }, 500)
+}
+
 const buttonsState = (state) => {
     buttons.forEach(e => {
         e.disabled = state
@@ -83,6 +104,7 @@ const popUp = () => {
     overlay.classList.add('active')
     // It's called like restartGame instead of restartGame()because it runs instantly if you call it as a function, but in the other hand, when you call it as a name, it runs after the event 'click' happens
     restartBtn.addEventListener('click',  restartGame)
+    noBtn.addEventListener('click', () => window.location.href = `https://github.com/migurd/rock-paper-scissors`)
 }
 
 const restartGame = () => {
@@ -91,9 +113,9 @@ const restartGame = () => {
     buttonsState(false)
     userScore = 0
     computerScore = 0
-    infoText.textContent = ""
-    userScoreTxt.textContent = ""
-    computerScoreTxt.textContent = ""
+    infoText.textContent = "Choose an option"
+    userScoreTxt.textContent = "0"
+    computerScoreTxt.textContent = "0"
 }
 
 const isOver = () => {
@@ -101,7 +123,7 @@ const isOver = () => {
         // Must show a bottom of restart, thus stopping the game
         buttonsState(true)
         if(userScore === 5)
-            resultTxt.textContent = `USER WINS ${userScore}:${computerScore}!`
+            resultTxt.textContent = `YOU WON ${userScore}:${computerScore}!`
         else
         resultTxt.textContent = `COMPUTER WINS ${computerScore}:${userScore}!`
         popUp()
