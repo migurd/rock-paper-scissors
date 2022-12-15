@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+#restart {
+    position: fixed;
+    /* This centers our div */
+    top: 50%;
+    left: 50%;
+    /* Scale */
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    /*  */
+    display: grid;
+    grid-template-rows: 40%;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 80%;
+    height: 200px;
+    z-index: 10;
+    background-color: white;
+}
+
+#restart.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.restart__header {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+}
+
+.restart__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.restart__body p {
+    margin-bottom: 20px;
+}
+
+.restart__body button {
+    width: 150px;
+    height: 30px;
+    cursor: pointer;;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    /* To avoid any interactions with elements underneath */
+    pointer-events: none;
+}
+/* Toggle overlay */
+#overlay.active { 
+    opacity: 1;
+    pointer-events: all;
+}
